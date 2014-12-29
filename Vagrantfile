@@ -7,6 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu-server-14.04"
   config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box"
+
   config.vm.define :CDP do |t|
   end
 
@@ -14,4 +15,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.memory = 2048
     v.cpus = 2
   end
+
+  config.vm.network "forwarded_port", guest: 80, host: 9000
+
+  config.vm.provision "shell", path: "provision.sh"
 end
